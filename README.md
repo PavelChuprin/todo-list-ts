@@ -1,30 +1,42 @@
-# React + TypeScript + Vite
+# Todo List
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Функционал приложения
 
-Currently, two official plugins are available:
+Добавление, редактирование и удаление задач.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Задача имеет заголовок и описание.
 
-## Expanding the ESLint configuration
+## Запуск приложения:
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- Склонируйте репозиторий:
 
-- Configure the top-level `parserOptions` property like this:
+  ```
+  https://github.com/PavelChuprin/todo-list-ts
+  ```
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+- установите зависимости командой:
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+  ```
+  npm install
+  ```
+
+- запустите проект командой:
+
+  ```
+  npm run dev
+  ```
+
+## Технологии в проекте
+
+- React + Redux Toolkit;
+- TypeScript;
+- Vite;
+
+Дополнительные вспомогательные библиотеки:
+
+- [uuid](https://www.npmjs.com/package/uuid)
+- [Ant Design](https://ant.design/)
+
+## Демо проекта
+
+https://todo-list-ts-dusky.vercel.app/
