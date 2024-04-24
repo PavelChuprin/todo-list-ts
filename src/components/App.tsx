@@ -52,7 +52,13 @@ const App: React.FC = () => {
   };
 
   return (
-    <Flex vertical gap={8}>
+    <Flex
+      vertical
+      gap={8}
+      style={{
+        padding: 8,
+      }}
+    >
       <Title level={4}>Todo List</Title>
       <Form items={items} />
       <TodoList
@@ -62,15 +68,20 @@ const App: React.FC = () => {
         saveTodo={saveTodo}
       />
 
-      <div style={{ display: "flex", height: 60 }}>
+      <Flex
+        justify="space-between"
+        style={{
+          padding: 16,
+        }}
+      >
+        {items.length > 4 && <Counter items={items} />}
         <FloatButton.BackTop
           style={{
-            right: 20,
-            bottom: 20,
+            right: 24,
+            bottom: 24,
           }}
         />
-        {items.length > 4 && <Counter items={items} />}
-      </div>
+      </Flex>
     </Flex>
   );
 };
