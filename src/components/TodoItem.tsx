@@ -110,6 +110,7 @@ const TodoItem: React.FC<ITodoItem> = (props) => {
         )}
         <Flex gap={8} align={"center"}>
           <Switch
+            style={{ backgroundColor: complete ? "#52C41A" : "#ccc" }}
             checked={complete}
             onChange={() => {
               complete === false ? success() : warning();
