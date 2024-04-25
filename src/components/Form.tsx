@@ -1,6 +1,6 @@
 import React from "react";
 import { v4 as uuidv4 } from "uuid";
-import { Flex, Button, Input } from "antd";
+import { Flex, Button, Input, message } from "antd";
 import { AppstoreAddOutlined, ClearOutlined } from "@ant-design/icons";
 import { useAppDispatch } from "../store";
 import { ITodo } from "../store/todos/types";
@@ -16,6 +16,15 @@ const Form: React.FC<IFormProps> = ({ items }) => {
   const [description, setDescription] = React.useState("");
 
   const dispatch = useAppDispatch();
+
+  const [messageApi, contextHolder] = message.useMessage();
+
+  const info = () => {
+    messageApi.open({
+      type: "info",
+      content: `Added: ${title}`,
+    });
+  };
 
   const handleChangeTitle: React.ChangeEventHandler<HTMLInputElement> = (e) => {
     e.preventDefault();
@@ -47,24 +56,14 @@ const Form: React.FC<IFormProps> = ({ items }) => {
           },
         ])
       );
-      sessionStorage.setItem(
-        "items",
-        JSON.stringify([
-          ...items,
-          {
-            id: uuidv4(),
-            title: title,
-            description: description,
-            complete: false,
-          },
-        ])
-      );
+      info();
       setTitle("");
       setDescription("");
     }
   };
   return (
     <Flex vertical gap={8}>
+      {contextHolder}
       <Input
         name="title"
         type="text"

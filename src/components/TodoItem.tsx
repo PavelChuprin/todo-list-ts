@@ -15,24 +15,40 @@ interface ITodoItem extends ITodo {
   removeTodo: (id: string) => void;
   toggleTodo: (id: string) => void;
   saveTodo: (id: string, newTitle: string, newDescription: string) => void;
+  remove: () => void;
 }
 
 const TodoItem: React.FC<ITodoItem> = (props) => {
-  const { id, title, description, complete, removeTodo, toggleTodo, saveTodo } =
-    props;
+  const {
+    id,
+    title,
+    description,
+    complete,
+    removeTodo,
+    toggleTodo,
+    saveTodo,
+    remove,
+  } = props;
 
   const [messageApi, contextHolder] = message.useMessage();
   const success = () => {
     messageApi.open({
       type: "success",
-      content: title,
+      content: `Done: ${title}`,
     });
   };
 
-  const error = () => {
+  const warning = () => {
     messageApi.open({
-      type: "error",
-      content: title,
+      type: "warning",
+      content: `Not done: ${title}`,
+    });
+  };
+
+  const info = () => {
+    messageApi.open({
+      type: "info",
+      content: "Changes saved",
     });
   };
 
@@ -59,6 +75,7 @@ const TodoItem: React.FC<ITodoItem> = (props) => {
     if (isEdit) {
       setIsEdit(false);
       saveTodo(id, newTitle, newDescription);
+      info();
     } else {
       setIsEdit(true);
     }
@@ -87,13 +104,15 @@ const TodoItem: React.FC<ITodoItem> = (props) => {
             />
           </Flex>
         ) : (
-          <Typography.Text strong>{title}</Typography.Text>
+          <Typography.Text strong onClick={() => setShow((prev) => !prev)}>
+            {title}
+          </Typography.Text>
         )}
         <Flex gap={8} align={"center"}>
           <Switch
             checked={complete}
             onChange={() => {
-              complete === false ? success() : error();
+              complete === false ? success() : warning();
               toggleTodo(id);
             }}
             checkedChildren={<CheckOutlined />}
@@ -130,7 +149,10 @@ const TodoItem: React.FC<ITodoItem> = (props) => {
               danger
               type="primary"
               icon={<DeleteOutlined />}
-              onClick={() => removeTodo(id)}
+              onClick={() => {
+                remove();
+                removeTodo(id);
+              }}
             />
           </Flex>
         </Flex>
