@@ -56,6 +56,18 @@ const Form: React.FC<IFormProps> = ({ items }) => {
           },
         ])
       );
+      sessionStorage.setItem(
+        "items",
+        JSON.stringify([
+          ...items,
+          {
+            id: uuidv4(),
+            title: title,
+            description: description,
+            complete: false,
+          },
+        ])
+      );
       info();
       setTitle("");
       setDescription("");
