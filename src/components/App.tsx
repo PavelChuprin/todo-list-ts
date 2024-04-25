@@ -7,20 +7,13 @@ import { RootState, useAppDispatch } from "../store";
 import { Form } from "./Form";
 import { Counter } from "./Counter";
 import { TodoList } from "./TodoList";
-import { ITodo } from "../store/todos/types";
 
 const App: React.FC = () => {
   const items = useSelector((state: RootState) => state.todo.items);
   const dispatch = useAppDispatch();
 
-  const newItems = JSON.parse(sessionStorage.getItem("items")!);
-
   const removeTodo = (id: string): void => {
     dispatch(setItems(items.filter((item) => item.id !== id)));
-    sessionStorage.setItem(
-      "items",
-      JSON.stringify(newItems.filter((newItem: ITodo) => newItem.id !== id))
-    );
   };
 
   const toggleTodo = (id: string): void => {
@@ -32,19 +25,6 @@ const App: React.FC = () => {
           return {
             ...item,
             complete: !item.complete,
-          };
-        })
-      )
-    );
-    sessionStorage.setItem(
-      "items",
-      JSON.stringify(
-        newItems.map((newItem: ITodo) => {
-          if (newItem.id !== id) return newItem;
-
-          return {
-            ...newItem,
-            complete: !newItem.complete,
           };
         })
       )
@@ -69,20 +49,6 @@ const App: React.FC = () => {
         })
       )
     );
-    sessionStorage.setItem(
-      "items",
-      JSON.stringify(
-        newItems.map((newItem: ITodo) => {
-          if (newItem.id !== id) return newItem;
-
-          return {
-            ...newItem,
-            title: newTitle,
-            description: newDescription,
-          };
-        })
-      )
-    );
   };
 
   return (
@@ -94,9 +60,9 @@ const App: React.FC = () => {
       }}
     >
       <Title level={4}>Todo List</Title>
-      <Form items={newItems} />
+      <Form items={items} />
       <TodoList
-        items={newItems}
+        items={items}
         removeTodo={removeTodo}
         toggleTodo={toggleTodo}
         saveTodo={saveTodo}
