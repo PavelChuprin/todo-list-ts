@@ -58,7 +58,7 @@ const Form: React.FC<IFormProps> = ({ items }) => {
 
     if (title && description) {
       dispatch(setItems(add()));
-      sessionStorage.setItem("items", JSON.stringify(add()));
+      localStorage.setItem("items", JSON.stringify(add()));
       info();
       setTitle("");
       setDescription("");

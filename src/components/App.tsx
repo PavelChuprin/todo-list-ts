@@ -10,11 +10,11 @@ import { TodoList } from "./TodoList";
 import { ITodo } from "../store/todos/types";
 
 const App: React.FC = () => {
-  const items = useSelector((state: RootState) => state.todo.items);
+  const items = useSelector((state: RootState) => state.todos.items);
   const dispatch = useAppDispatch();
 
   let newItems = items;
-  const data = sessionStorage.getItem("items");
+  const data = localStorage.getItem("items");
   if (data) {
     newItems = JSON.parse(data);
   }
@@ -25,7 +25,7 @@ const App: React.FC = () => {
     }
 
     dispatch(setItems(remove(items)));
-    sessionStorage.setItem("items", JSON.stringify(remove(newItems)));
+    localStorage.setItem("items", JSON.stringify(remove(newItems)));
   };
 
   const toggleTodo = (id: string): void => {
@@ -41,7 +41,7 @@ const App: React.FC = () => {
     }
 
     dispatch(setItems(toggle(items)));
-    sessionStorage.setItem("items", JSON.stringify(toggle(newItems)));
+    localStorage.setItem("items", JSON.stringify(toggle(newItems)));
   };
 
   const saveTodo = (
@@ -62,7 +62,7 @@ const App: React.FC = () => {
     }
 
     dispatch(setItems(save(items)));
-    sessionStorage.setItem("items", JSON.stringify(save(newItems)));
+    localStorage.setItem("items", JSON.stringify(save(newItems)));
   };
 
   return (

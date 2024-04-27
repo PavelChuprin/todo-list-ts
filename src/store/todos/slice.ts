@@ -13,7 +13,7 @@ const initialState: TodoSliceState = {
 };
 
 export const todoSlice = createSlice({
-  name: "todo",
+  name: "todos",
   initialState,
   reducers: {
     setItems(state, action: PayloadAction<ITodo[]>) {

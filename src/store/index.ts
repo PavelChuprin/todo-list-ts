@@ -1,10 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { useDispatch } from "react-redux";
-import todo from "./todos/slice";
+import todos from "./todos/slice";
 
 export const store = configureStore({
   reducer: {
-    todo,
+    todos,
   },
 });
 
