@@ -30,6 +30,11 @@ const TodoItem: React.FC<ITodoItem> = (props) => {
     remove,
   } = props;
 
+  const [show, setShow] = React.useState(false);
+  const [isEdit, setIsEdit] = React.useState(false);
+  const [newTitle, setNewTitle] = React.useState(title);
+  const [newDescription, setNewDescription] = React.useState(description);
+
   const [messageApi, contextHolder] = message.useMessage();
   const success = () => {
     messageApi.open({
@@ -51,11 +56,6 @@ const TodoItem: React.FC<ITodoItem> = (props) => {
       content: "Changes saved",
     });
   };
-
-  const [show, setShow] = React.useState(false);
-  const [isEdit, setIsEdit] = React.useState(false);
-  const [newTitle, setNewTitle] = React.useState(title);
-  const [newDescription, setNewDescription] = React.useState(description);
 
   const handleChangeNewTitle: React.ChangeEventHandler<HTMLInputElement> = (
     e
@@ -82,11 +82,10 @@ const TodoItem: React.FC<ITodoItem> = (props) => {
   };
 
   return (
-    <div
+    <Flex
+      vertical
+      gap={8}
       style={{
-        display: "flex",
-        flexDirection: "column",
-        gap: 8,
         border: "1px solid #f0f0f0",
         borderRadius: 8,
         padding: 8,
@@ -158,7 +157,7 @@ const TodoItem: React.FC<ITodoItem> = (props) => {
           </Flex>
         </Flex>
       )}
-    </div>
+    </Flex>
   );
 };
 

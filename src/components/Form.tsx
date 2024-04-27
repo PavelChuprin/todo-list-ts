@@ -44,35 +44,27 @@ const Form: React.FC<IFormProps> = ({ items }) => {
   };
 
   const addTodo = () => {
+    function add() {
+      return [
+        ...items,
+        {
+          id: uuidv4(),
+          title: title,
+          description: description,
+          complete: false,
+        },
+      ];
+    }
+
     if (title && description) {
-      dispatch(
-        setItems([
-          ...items,
-          {
-            id: uuidv4(),
-            title: title,
-            description: description,
-            complete: false,
-          },
-        ])
-      );
-      sessionStorage.setItem(
-        "items",
-        JSON.stringify([
-          ...items,
-          {
-            id: uuidv4(),
-            title: title,
-            description: description,
-            complete: false,
-          },
-        ])
-      );
+      dispatch(setItems(add()));
+      sessionStorage.setItem("items", JSON.stringify(add()));
       info();
       setTitle("");
       setDescription("");
     }
   };
+
   return (
     <Flex vertical gap={8}>
       {contextHolder}

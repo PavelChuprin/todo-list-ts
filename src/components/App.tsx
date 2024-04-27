@@ -20,39 +20,28 @@ const App: React.FC = () => {
   }
 
   const removeTodo = (id: string): void => {
-    dispatch(setItems(items.filter((item) => item.id !== id)));
-    sessionStorage.setItem(
-      "items",
-      JSON.stringify(newItems.filter((newItem: ITodo) => newItem.id !== id))
-    );
+    function remove(items: ITodo[]) {
+      return items.filter((item) => item.id !== id);
+    }
+
+    dispatch(setItems(remove(items)));
+    sessionStorage.setItem("items", JSON.stringify(remove(newItems)));
   };
 
   const toggleTodo = (id: string): void => {
-    dispatch(
-      setItems(
-        items.map((item) => {
-          if (item.id !== id) return item;
+    function toggle(items: ITodo[]) {
+      return items.map((item) => {
+        if (item.id !== id) return item;
 
-          return {
-            ...item,
-            complete: !item.complete,
-          };
-        })
-      )
-    );
-    sessionStorage.setItem(
-      "items",
-      JSON.stringify(
-        newItems.map((newItem: ITodo) => {
-          if (newItem.id !== id) return newItem;
+        return {
+          ...item,
+          complete: !item.complete,
+        };
+      });
+    }
 
-          return {
-            ...newItem,
-            complete: !newItem.complete,
-          };
-        })
-      )
-    );
+    dispatch(setItems(toggle(items)));
+    sessionStorage.setItem("items", JSON.stringify(toggle(newItems)));
   };
 
   const saveTodo = (
@@ -60,33 +49,20 @@ const App: React.FC = () => {
     newTitle: string,
     newDescription: string
   ): void => {
-    dispatch(
-      setItems(
-        items.map((item) => {
-          if (item.id !== id) return item;
+    function save(items: ITodo[]) {
+      return items.map((item) => {
+        if (item.id !== id) return item;
 
-          return {
-            ...item,
-            title: newTitle,
-            description: newDescription,
-          };
-        })
-      )
-    );
-    sessionStorage.setItem(
-      "items",
-      JSON.stringify(
-        newItems.map((newItem: ITodo) => {
-          if (newItem.id !== id) return newItem;
+        return {
+          ...item,
+          title: newTitle,
+          description: newDescription,
+        };
+      });
+    }
 
-          return {
-            ...newItem,
-            title: newTitle,
-            description: newDescription,
-          };
-        })
-      )
-    );
+    dispatch(setItems(save(items)));
+    sessionStorage.setItem("items", JSON.stringify(save(newItems)));
   };
 
   return (
@@ -95,6 +71,8 @@ const App: React.FC = () => {
       gap={8}
       style={{
         padding: 8,
+        maxWidth: 560,
+        margin: "0 auto",
       }}
     >
       <Title level={4}>Todo List</Title>
@@ -105,7 +83,6 @@ const App: React.FC = () => {
         toggleTodo={toggleTodo}
         saveTodo={saveTodo}
       />
-
       <Flex
         justify="space-between"
         style={{
